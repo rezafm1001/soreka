@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Permission;
 use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
@@ -16,8 +17,12 @@ class RoleController extends Controller
     public function index()
     {
         //
-        $roles=Role::get();
-        return view('role.list',compact('roles'));
+        if(Gate::allows('see_roles')) {
+            $roles = Role::get();
+            return view('role.list', compact('roles'));
+        }else {
+            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+        }
     }
 
     /**
@@ -28,8 +33,13 @@ class RoleController extends Controller
     public function create()
     {
         //
-        $permissions=Permission::get();
-        return view('role.create',compact('permissions'));
+        if(Gate::allows('create_role')) {
+            $permissions = Permission::get();
+            return view('role.create', compact('permissions'));
+        }else{
+            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+
+        }
     }
 
     /**
@@ -41,11 +51,17 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
-        $role=Role::create([
+        if(Gate::allows('create_role')) {
+
+            $role=Role::create([
             'name'=>$request['name'],
         ]);
         $role->permissions()->sync($request->input('permission'));
         return redirect()->back();
+        }else{
+            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+
+        }
     }
 
     /**
@@ -91,7 +107,13 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         //
-        $role->delete();
+        if(Gate::allows('delete_role')) {
+
+            $role->delete();
         return redirect()->back();
+    }else{
+echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+
+}
     }
 }

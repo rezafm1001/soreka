@@ -48,12 +48,13 @@
 
 
 
-
+@can('delete_role')
                                 <form  method="post" action="{{route('role.destroy',['role'=>$role->id])}}">
                                 {{csrf_field()}}
                                 {{method_field('DELETE')}}
                                 <input type="submit" class="btn btn-danger" value="حذف">
                             </form>
+    @endcan
                         </td>
                     </tr>
 @endforeach

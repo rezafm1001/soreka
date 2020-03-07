@@ -266,7 +266,7 @@
                             <li class="dropdown-menu-title">
                                 <span>Account Settings</span>
                             </li>
-                            <li><a href="#"><i class="halflings-icon user"></i> Profile</a></li>
+                            <li><a href="#"><i class="halflings-icon user"></i> {{auth()->user()->username}}</a></li>
 
                             <li> <form class="halflings-icon off" method="post" action="{{route('logout')}}">
                                     {{csrf_field()}}

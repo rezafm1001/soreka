@@ -137,7 +137,7 @@ class OfficeController extends BaseController
     public function all()
     {
         //
-        if(Gate::allows('see_all')) {
+        if(Gate::allows('see_all_offices')) {
             $offices = Office::get();
             return view('office.list_all', compact('offices'));
         }else {

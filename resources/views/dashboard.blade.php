@@ -1,7 +1,7 @@
 @extends('layouts.menu')
 @section('content')
 
-    Reza VS SOberia
+    <h1>Welcome {{auth()->user()->username}}</h1>
 
 
     @endsection
