@@ -5,8 +5,8 @@
         {{csrf_field()}}
      <input type="text" name="username" placeholder="username"><br>
     <input type="password" name="password" placeholder="password"><br>
-        دسترسی ها<select name="permission[]" multiple>
-            @foreach($permissions as $p)
+        دسترسی ها<select name="role[]" multiple>
+            @foreach($roles as $p)
             <option value="{{$p->id}}">{{$p->name}}</option>
                 @endforeach
         </select>

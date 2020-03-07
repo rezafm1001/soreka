@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::group(['middleware'=>'auth'],function (){
     Route::resource('user','UserController');
     Route::resource('office','OfficeController');
+    Route::resource('role','RoleController');
     Route::get('all','OfficeController@all')->name('office.all');
 
 });

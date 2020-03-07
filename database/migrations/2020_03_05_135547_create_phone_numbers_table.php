@@ -19,6 +19,8 @@ class CreatePhoneNumbersTable extends Migration
             $table->string('phone')->nullable();
             $table->integer('office_id');
             $table->timestamps();
+            $table->softDeletes();
+
             $table->foreign('office_id')->references('id')->on('offices')
                 ->onUpdate('cascade')->onDelete('cascade');
         });

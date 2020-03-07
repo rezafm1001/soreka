@@ -23,8 +23,8 @@
                 <table class="table table-striped table-bordered bootstrap-datatable datatable">
                     <thead>
                     <tr>
-                        <th>نام کاربری</th>
-                        <th>نقش ها</th>
+                        <th>نام نقش</th>
+                        <th>دسترسی ها</th>
                         <th>تاریخ ایجاد</th>
                         <th> عملیات</th>
                     </tr>
@@ -33,31 +33,27 @@
 
 
 
-@foreach($users as $user)
+@foreach($roles as $role)
                     <tr>
-                        <td>{{$user->username}}</td>
+                        <td>{{$role->name}}</td>
                         <td>
-                        @foreach($user->roles as $per)
+                        @foreach($role->permissions as $per)
                                 {{$per->name}}<br>
                             @endforeach
                         </td>
 
-                        <td class="center">{{$user->created_at}}</td>
+                        <td class="center">{{$role->created_at}}</td>
 
                         <td class="center">
-                            @can('update_user')
-                            <a class="btn btn-info" href="{{route('user.edit',['user'=>$user->id])}}">
-                                <i class=" white edit">نمایش اطلاعات و ویرایش</i>
-                            </a>
-@endcan
-                                @can('delete_user')
 
-                                <form  method="post" action="{{route('user.destroy',['user'=>$user->id])}}">
+
+
+
+                                <form  method="post" action="{{route('role.destroy',['role'=>$role->id])}}">
                                 {{csrf_field()}}
                                 {{method_field('DELETE')}}
                                 <input type="submit" class="btn btn-danger" value="حذف">
                             </form>
-@endcan
                         </td>
                     </tr>
 @endforeach

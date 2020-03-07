@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Permissions;
+use App\Permission;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -26,12 +26,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        $permissions=Permissions::get();
+        $permissions=Permission::get();
         foreach ($permissions as $permission){
             Gate::define($permission->name,function ($user) use ($permission){
-                foreach ($user->permissions as $per) {
-                    if($per->name==$permission->name){
-                        return true;
+                foreach ($user->roles as $role) {
+                    foreach ($role->permissions as $per) {
+                        if ($per->name == $permission->name) {
+                            return true;
+                        }
                     }
                 }
                 return false;

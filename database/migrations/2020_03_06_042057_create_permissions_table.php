@@ -18,11 +18,25 @@ class CreatePermissionsTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-        Schema::create('permissions_user', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+        Schema::create('permission_role', function (Blueprint $table) {
+            $table->integer('role_id');
+            $table->integer('permission_id');
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('permission_id')->references('id')->on('permissions');
+            $table->primary(['role_id','permission_id']);
+        });
+        Schema::create('role_user', function (Blueprint $table) {
             $table->integer('user_id');
-            $table->integer('permissions_id');
+            $table->integer('role_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('permissions_id')->references('id')->on('permissions');
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->primary(['role_id','user_id']);
+
         });
     }
 

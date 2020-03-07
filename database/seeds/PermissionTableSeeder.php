@@ -12,21 +12,26 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         //
-        \App\Permissions::create([
+        \App\Permission::create([
             'name'=>'delete_user',
         ]);
-        \App\Permissions::create([
+        \App\Permission::create([
             'name'=>'update_user',
         ]);
-        \App\Permissions::create([
+        \App\Permission::create([
             'name'=>'see_users',
         ]);
-        \App\Permissions::create([
+        \App\Permission::create([
             'name'=>'see_all',
         ]);
-        \App\Permissions::create([
+        \App\Permission::create([
             'name'=>'create_user',
         ]);
 
+
+       $role= \App\Role::create([
+            'name'=>'admin'
+        ]);
+        $role->permissions()->sync([1,2,3,4,5]);
     }
 }

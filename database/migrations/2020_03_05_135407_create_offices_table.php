@@ -26,7 +26,9 @@ class CreateOfficesTable extends Migration
             $table->integer('sell_model')->nullable();
             $table->integer('user_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('users')->on('id')
+            $table->softDeletes();
+
+            $table->foreign('user_id')->on('users')->references('id')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
     }

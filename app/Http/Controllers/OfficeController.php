@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Office;
 use App\PhoneNumber;
 use Faker\Provider\Base;

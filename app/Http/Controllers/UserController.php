@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Permissions;
+use App\Role;
 use App\User;
 
 use Illuminate\Http\Request;
@@ -38,8 +38,8 @@ class UserController extends BaseController
     {
         //
         if(Gate::allows('create_user')){
-            $permissions=Permissions::get();
-            return view('user.create',compact('permissions'));
+            $roles=Role::get();
+            return view('user.create',compact('roles'));
         }else {
             echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
 
@@ -61,7 +61,7 @@ class UserController extends BaseController
                 'username' => $request['username'],
                 'password' => Hash::make($request['password']),
             ]);
-            $user->permissions()->sync($request->input('permission'));
+            $user->roles()->sync($request->input('role'));
             return redirect(route('user.index'));
         }else {
             echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
@@ -90,8 +90,8 @@ class UserController extends BaseController
     {
         //
         if(Gate::allows('update_user')){
-            $permissions=Permissions::get();
-            return view('user.edit',compact('user','permissions'));
+            $roles=Role::get();
+            return view('user.edit',compact('user','roles'));
         }else{
             echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
 
@@ -115,7 +115,7 @@ class UserController extends BaseController
                 'username' => $request['username'],
                 'password' => Hash::make($request['password']),
             ]);
-            $user->permissions()->sync($request->input('permission'));
+            $user->roles()->sync($request->input('role'));
             return redirect(route('user.index'));
         }else {
             echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
