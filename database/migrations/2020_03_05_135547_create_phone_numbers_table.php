@@ -17,7 +17,7 @@ class CreatePhoneNumbersTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
-            $table->integer('office_id');
+            $table->bigInteger('office_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 

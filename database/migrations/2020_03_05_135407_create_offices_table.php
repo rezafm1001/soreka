@@ -24,7 +24,7 @@ class CreateOfficesTable extends Migration
             $table->string('brand')->nullable();
             $table->text('description')->nullable();
             $table->integer('sell_model')->nullable();
-            $table->integer('user_id');
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
