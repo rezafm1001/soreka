@@ -16,11 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 })->name('home')->middleware('auth');
-Route::group(['middleware'=>'auth'],function (){
-    Route::resource('user','UserController');
-    Route::resource('office','OfficeController');
-    Route::resource('role','RoleController');
-    Route::get('all','OfficeController@all')->name('office.all');
+Route::get('/home', function () {
+    return view('dashboard');
+})->name('home')->middleware('auth');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('user', 'UserController');
+    Route::resource('office', 'OfficeController');
+    Route::resource('role', 'RoleController');
+    Route::get('all', 'OfficeController@all')->name('office.all');
 
 });
 
