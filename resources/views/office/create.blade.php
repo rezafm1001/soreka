@@ -63,7 +63,7 @@
 
                                 <div id="filters_holder" class="row">
                                     <input class="form-control" name="name[0]" type="text"  placeholder="نام و سمت شخص">
-                                    <input class="form-control" name="phone[0]" type="text"  placeholder="شماره تلفن">
+                                    <input class="form-control" name="phone[0]" type="number"  placeholder="شماره تلفن">
                                 </div>
 
 
@@ -90,7 +90,7 @@
             <ul>
                 @foreach($errors->all() as $e)
                     <li>
-                        {{$e}}
+                       <p class="alert-danger">{{$e}}</p>
                     </li>
                     @endforeach
             </ul>
@@ -105,7 +105,7 @@
         function addFilter(){
             var count=document.getElementsByClassName("divi").length+1;
             var txt='<br><div  class="divi">' +
-                '<input class="form-control" name="name['+count+']" type="text"  placeholder="نام و سمت شخص">' +
+                '<br><input class="form-control" name="name['+count+']" type="text"  placeholder="نام و سمت شخص">' +
                 '<input class="form-control" name="phone['+count+']" type="text"  placeholder="شماره تلفن">' +
                 '</div>';
             $("#filters_holder").append(txt);

@@ -38,4 +38,14 @@
         <!-- /.col-lg-12 -->
     </div>
 
+    @if($errors->any())
+        <ul>
+            @foreach($errors->all() as $e)
+                <li>
+                  <p class="alert-danger">{{$e}}</p>
+                </li>
+            @endforeach
+        </ul>
+    @endif
+
     @endsection

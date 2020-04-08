@@ -20,7 +20,7 @@ class UserController extends BaseController
     {
         //
         if (Gate::allows('see_users')) {
-            $users = User::get();
+            $users = User::orderBy('id','DESC')->paginate(30);
             return view('user.list', compact('users'));
         } else {
             return abort(401);
@@ -56,6 +56,12 @@ class UserController extends BaseController
     public function store(Request $request)
     {
         //
+        $this->validate(request(), [
+            'username' => 'required|string|min:4|max:30|unique:App\User,username',
+            'password' => 'required|string|min:4|max:30',
+        ],[
+            'username.unique'=>'این نام کاربری قبلا به ثبت رسیده است...'
+        ]);
         if (Gate::allows('create_user')) {
             $user = User::create([
                 'username' => $request['username'],
@@ -113,6 +119,14 @@ class UserController extends BaseController
     public function update(Request $request, User $user)
     {
         //
+        $this->validate(request(), [
+            'username' => 'required|string|min:4|max:30',
+            'password' => 'required|string|min:4|max:30',
+
+        ],[
+            'username.unique'=>'این نام کاربری قبلا به ثبت رسیده است...'
+        ]);
+
         if ($user->id == 1 && auth()->user()->id!=1) {
             return abort(401);}
         else{

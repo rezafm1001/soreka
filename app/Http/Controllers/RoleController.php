@@ -18,7 +18,7 @@ class RoleController extends Controller
     {
         //
         if(Gate::allows('see_roles')) {
-            $roles = Role::get();
+            $roles = Role::orderBy('id','DESC')->paginate(30);
             return view('role.list', compact('roles'));
         }else {
             return abort(401);
@@ -51,6 +51,12 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(request(), [
+            'name' => 'required|string|min:1|max:30',
+            'permission' => 'required',
+        ],[
+            'permission.required'=>'وارد کردن حداقل یک دسترسی الزامی است'
+        ]);
         if(Gate::allows('create_role')) {
 
             $role=Role::create([

@@ -62,5 +62,5 @@
     </div>
 
 
-
+{{$offices->links()}}
 @endsection

@@ -77,7 +77,7 @@
                                         <input class="form-control" name="name[{{$key}}]" type="text" style="margin-left: 10px;" placeholder="نام و سمت شخص"
                                                value="{{$phone->name}}">
                                         <input class="form-control" name="phone[{{$key}}]" type="text" style="margin-left: 10px;" placeholder="شماره تلفن"
-                                               value="{{$phone->phone}}">
+                                               value="{{$phone->phone}}"><br>
                                     @endforeach
 
                                 </div>
@@ -120,9 +120,9 @@
         function addFilter() {
             var count = document.getElementsByClassName("divi").length +{{sizeof($office->PhoneNumbers)}};
             var txt = '<br><div style=" height: 30px; margin: 10px 0;" class="divi">' +
-                '<input class="form-control" name="name[' + count + ']" type="text"  placeholder="نام و سمت شخص">' +
+                '<br><input class="form-control" name="name[' + count + ']" type="text"  placeholder="نام و سمت شخص">' +
                 '<input class="form-control" name="phone[' + count + ']" type="text"  placeholder="شماره تلفن">' +
-                '</div>';
+                '</div><br>';
             $("#filters_holder").append(txt);
         }
     </script>

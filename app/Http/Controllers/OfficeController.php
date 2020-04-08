@@ -19,7 +19,7 @@ class OfficeController extends BaseController
     public function index()
     {
         //
-        $offices = Office::where('user_id', auth()->user()->id)->get();
+        $offices = Office::where('user_id', auth()->user()->id)->orderBy('id','DESC')->paginate(30);
         return view('office.list', compact('offices'));
 
     }
@@ -45,9 +45,11 @@ class OfficeController extends BaseController
     {
         //
         $this->validate(request(), [
-            'office_name' => 'required',
+            'office_name' => 'required|string',
+            'phone[]'=>'numeric',
 
         ]);
+//        dd($request->all());
         Office::create([
             'office_name' => $request['office_name'],
             'city_name' => $request['city_name'],
@@ -61,7 +63,7 @@ class OfficeController extends BaseController
             'user_id' => auth()->user()->id,
         ]);
         foreach ($request->input('name') as $key => $value) {
-            if (!is_null($value)) {
+            if (!(is_null($value)&&is_null($request->input('phone')[$key]))) {
                 PhoneNumber::create([
                     'phone' => $request->input('phone')[$key],
                     'name' => $request->input('name')[$key],
@@ -106,6 +108,10 @@ class OfficeController extends BaseController
     public function update(Request $request, Office $office)
     {
         //
+        $this->validate(request(), [
+            'office_name' => 'required|string',
+            'phone[]'=>'numeric',
+        ]);
         $office->PhoneNumbers()->delete();
         foreach ($request->input('name') as $key => $value) {
             if (!is_null($value)) {
@@ -139,7 +145,7 @@ class OfficeController extends BaseController
     {
         //
         if (Gate::allows('see_all_offices')) {
-            $offices = Office::get();
+            $offices = Office::orderBy('id','DESC')->paginate(30);
             return view('office.list_all', compact('offices'));
         } else {
             return abort(401);

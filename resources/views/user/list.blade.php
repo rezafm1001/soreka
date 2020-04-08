@@ -77,5 +77,5 @@
         <!-- /.col-lg-12 -->
     </div>
 
-
+    {{$users->links()}}
 @endsection
