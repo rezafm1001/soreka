@@ -17,12 +17,12 @@ class OfficeController extends BaseController
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    //
-    $offices=Office::where('user_id',auth()->user()->id)->get();
-    return view('office.list',compact('offices'));
+    {
+        //
+        $offices = Office::where('user_id', auth()->user()->id)->get();
+        return view('office.list', compact('offices'));
 
-}
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -93,7 +93,7 @@ class OfficeController extends BaseController
     public function edit(Office $office)
     {
         //
-        return view('office.edit',compact('office'));
+        return view('office.edit', compact('office'));
     }
 
     /**
@@ -134,15 +134,19 @@ class OfficeController extends BaseController
         $office->delete();
         return redirect()->back();
     }
+
     public function all()
     {
         //
-        if(Gate::allows('see_all_offices')) {
+        if (Gate::allows('see_all_offices')) {
             $offices = Office::get();
             return view('office.list_all', compact('offices'));
-        }else {
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+        } else {
+            return abort(401);
 
         }
     }
+
+
+
 }

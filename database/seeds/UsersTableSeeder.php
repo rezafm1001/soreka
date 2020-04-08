@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
        $user= \App\User::create([
             'username'=>'admin',
             'password' => Hash::make('admin'),
+           'creator_id'=>0,
         ]);
        $user->roles()->sync(1);
     }

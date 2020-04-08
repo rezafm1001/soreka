@@ -1,105 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-    <!-- start: Meta -->
     <meta charset="utf-8">
-    <title>Bootstrap Metro Dashboard by Dennis Ji for ARM demo</title>
-    <meta name="description" content="Bootstrap Metro Dashboard">
-    <meta name="author" content="Dennis Ji">
-    <meta name="keyword" content="Metro, Metro UI, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <!-- end: Meta -->
-
-    <!-- start: Mobile Specific -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- end: Mobile Specific -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <!-- start: CSS -->
-    <link id="bootstrap-style" href="/admin/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/admin/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link id="base-style" href="/admin/css/style.css" rel="stylesheet">
-    <link id="base-style-responsive" href="/admin/css/style-responsive.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
-    <!-- end: CSS -->
+    <title>{{env('APP_NAME','PhoneBook')}}</title>
 
+    <!-- Bootstrap Core CSS -->
+    <link href="/admin2/css/rtl/bootstrap.min.css" rel="stylesheet">
 
-    <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!-- not use this in ltr -->
+    <link href="/admin2/css/rtl/bootstrap.rtl.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/admin2/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="/admin2/css/plugins/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/admin2/css/rtl/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/admin2/css/plugins/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/admin2/css/font-awesome/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <link id="ie-style" href="/admin/css/ie.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!--[if IE 9]>
-    <link id="ie9style" href="/admin/css/ie9.css" rel="stylesheet">
-    <![endif]-->
-
-    <!-- start: Favicon -->
-    <link rel="shortcut icon" href="/admin/img/favicon.ico">
-    <!-- end: Favicon -->
 
 
-
-
+    <link href="/admin2/css/multiple-select.css" rel="stylesheet">
 </head>
 
 <body>
+
 @yield('body')
 
-<script src="/admin/js/jquery-1.9.1.min.js"></script>
-<script src="/admin/js/jquery-migrate-1.0.0.min.js"></script>
+<!-- jQuery Version 1.11.0 -->
+<script src="/admin2/js/jquery-1.11.0.js"></script>
 
-<script src="/admin/js/jquery-ui-1.10.0.custom.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/admin2/js/bootstrap.min.js"></script>
 
-<script src="/admin/js/jquery.ui.touch-punch.js"></script>
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/admin2/js/metisMenu/metisMenu.min.js"></script>
 
-<script src="/admin/js/modernizr.js"></script>
+<!-- Morris Charts JavaScript -->
+<script src="/admin2/js/raphael/raphael.min.js"></script>
+<script src="/admin2/js/morris/morris.min.js"></script>
 
-<script src="/admin/js/bootstrap.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="/admin2/js/sb-admin-2.js"></script>
+{{--<script type="text/javascript">--}}
+{{--    $(document).ready(function() {--}}
+{{--        $('#rezaa').select();--}}
+{{--    });--}}
+{{--</script>--}}
+<script src="/admin2/js/multiple-select.js"></script>
+<script>
+    new MultipleSelect('#rezaa', {
+        placeholder: 'سطح دسترسی'
+    })
+</script>
 
-<script src="/admin/js/jquery.cookie.js"></script>
+    </body>
 
-<script src='js/fullcalendar.min.js'></script>
-
-<script src='js/jquery.dataTables.min.js'></script>
-
-<script src="/admin/js/excanvas.js"></script>
-<script src="/admin/js/jquery.flot.js"></script>
-<script src="/admin/js/jquery.flot.pie.js"></script>
-<script src="/admin/js/jquery.flot.stack.js"></script>
-<script src="/admin/js/jquery.flot.resize.min.js"></script>
-
-<script src="/admin/js/jquery.chosen.min.js"></script>
-
-<script src="/admin/js/jquery.uniform.min.js"></script>
-
-<script src="/admin/js/jquery.cleditor.min.js"></script>
-
-<script src="/admin/js/jquery.noty.js"></script>
-
-<script src="/admin/js/jquery.elfinder.min.js"></script>
-
-<script src="/admin/js/jquery.raty.min.js"></script>
-
-<script src="/admin/js/jquery.iphone.toggle.js"></script>
-
-<script src="/admin/js/jquery.uploadify-3.1.min.js"></script>
-
-<script src="/admin/js/jquery.gritter.min.js"></script>
-
-<script src="/admin/js/jquery.imagesloaded.js"></script>
-
-<script src="/admin/js/jquery.masonry.min.js"></script>
-
-<script src="/admin/js/jquery.knob.modified.js"></script>
-
-<script src="/admin/js/jquery.sparkline.min.js"></script>
-
-<script src="/admin/js/counter.js"></script>
-
-<script src="/admin/js/retina.js"></script>
-
-<script src="/admin/js/custom.js"></script>
-<!-- end: JavaScript-->
-
-</body>
 </html>

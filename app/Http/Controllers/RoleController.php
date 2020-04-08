@@ -21,7 +21,7 @@ class RoleController extends Controller
             $roles = Role::get();
             return view('role.list', compact('roles'));
         }else {
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+            return abort(401);
         }
     }
 
@@ -37,7 +37,7 @@ class RoleController extends Controller
             $permissions = Permission::get();
             return view('role.create', compact('permissions'));
         }else{
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+            return abort(401);
 
         }
     }
@@ -59,7 +59,7 @@ class RoleController extends Controller
         $role->permissions()->sync($request->input('permission'));
         return redirect()->back();
         }else{
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+            return abort(401);
 
         }
     }
@@ -107,13 +107,17 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         //
+        if($role->id!=1){
         if(Gate::allows('delete_role')) {
 
             $role->delete();
         return redirect()->back();
     }else{
-echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+            return abort(401);
 
-}
+}}else{
+            return abort(401);
+
+        }
     }
 }

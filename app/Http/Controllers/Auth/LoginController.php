@@ -38,4 +38,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    /**
+     * @param string $redirectTo
+     */
+
 }

@@ -1,71 +1,67 @@
 @extends('layouts.menu')
 @section('content')
-    <ul class="breadcrumb">
-        <li>
-            <i class="icon-home"></i>
-            <a href="index.html">Home</a>
-            <i class="icon-angle-right"></i>
-        </li>
-        <li><a href="#">Tables</a></li>
-    </ul>
-
-    <div class="row-fluid sortable">
-        <div class="box span12">
-            <div class="box-header" data-original-title>
-                <h2><i class="halflings-icon user"></i><span class="break"></span>Members</h2>
-                <div class="box-icon">
-                    <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                    <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+    @include('layouts.toolbar',['toolbar'=>__('res.role_list')])
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
                 </div>
-            </div>
-            <div class="box-content">
-                <table class="table table-striped table-bordered bootstrap-datatable datatable">
-                    <thead>
-                    <tr>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
                         <th>نام نقش</th>
                         <th>دسترسی ها</th>
                         <th>تاریخ ایجاد</th>
                         <th> عملیات</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                            </tr>
+                            </thead>
+                            <tbody>
 
 
 
-@foreach($roles as $role)
+                            @foreach($roles as $role)
                     <tr>
                         <td>{{$role->name}}</td>
                         <td>
                         @foreach($role->permissions as $per)
-                                {{$per->name}}<br>
+                                {{$per->title}}<br>
                             @endforeach
                         </td>
 
-                        <td class="center">{{$role->created_at}}</td>
+                        <td>{{$role->created_at}}</td>
 
-                        <td class="center">
+                        <td>
 
-
+@if($role->id!=1)
 
 @can('delete_role')
                                 <form  method="post" action="{{route('role.destroy',['role'=>$role->id])}}">
                                 {{csrf_field()}}
                                 {{method_field('DELETE')}}
-                                <input type="submit" class="btn btn-danger" value="حذف">
+                                <input type="submit" class="btn btn-danger" value="{{__('res.delete')}}">
                             </form>
     @endcan
+    @else
+        امکان حذف و ویرایش این نقش وجود ندارد
+    @endif
                         </td>
                     </tr>
 @endforeach
 
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
 
-                    </tbody>
-                </table>
+                </div>
+                <!-- /.panel-body -->
             </div>
-        </div><!--/span-->
-
-    </div><!--/row-->
-
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
 
 @endsection

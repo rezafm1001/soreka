@@ -1,57 +1,69 @@
 @extends('layouts.menu')
 @section('content')
-    <ul class="breadcrumb">
-        <li>
-            <i class="icon-home"></i>
-            <a href="index.html">Home</a>
-            <i class="icon-angle-right"></i>
-        </li>
-        <li><a href="#">Tables</a></li>
-    </ul>
-
-    <div class="row-fluid sortable">
-        <div class="box span12">
-            <div class="box-header" data-original-title>
-                <h2><i class="halflings-icon user"></i><span class="break"></span>Members</h2>
-                <div class="box-icon">
-                    <a href="#" class="btn-setting"><i class="halflings-icon wrench"></i></a>
-                    <a href="#" class="btn-minimize"><i class="halflings-icon chevron-up"></i></a>
-                    <a href="#" class="btn-close"><i class="halflings-icon remove"></i></a>
+    @include('layouts.toolbar',['toolbar'=>__('res.office_all')])
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
                 </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                            <tr>
+
+                                <th>نام شرکت</th>
+                                <th>نام مدیر</th>
+                                <th>زمیه فعالیت</th>
+                                <th>تاریخ ایجاد</th>
+                                <th>کاربر ایجاد کننده</th>
+                                <th>عملیات</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+
+
+                            @foreach($offices as $office)
+                                <tr>
+                                    <td>{{$office->office_name}}</td>
+                                    <td>{{$office->manager_name}}</td>
+                                    <td>{{$office->activity}}</td>
+                                    <td>{{$office->created_at}}</td>
+                                    <td>{{$office->user->username}}</td>
+                                    <td>
+
+
+
+                                        @can('delete_office')
+                                            <form  method="post" action="{{route('office.destroy',['office'=>$office->id])}}">
+                                                {{csrf_field()}}
+                                                {{method_field('DELETE')}}
+                                                <input type="submit" class="btn btn-danger" value="{{__('res.delete')}}">
+                                            </form>
+                                        @endcan
+                                    </td>
+
+                                </tr>
+                            @endforeach
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+
+                </div>
+                <!-- /.panel-body -->
             </div>
-            <div class="box-content">
-                <table class="table table-striped table-bordered bootstrap-datatable datatable">
-                    <thead>
-                    <tr>
-                        <th>نام شرکت</th>
-                        <th>نام مدیر</th>
-                        <th>زمیه فعالیت</th>
-                        <th>تاریخ ایجاد</th>
-                        <th>کاربر ایجاد کننده</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
 
-
-
-@foreach($offices as $office)
-                    <tr>
-                        <td>{{$office->office_name}}</td>
-                        <td>{{$office->manager_name}}</td>
-                        <td>{{$office->activity}}</td>
-                        <td class="center">{{$office->created_at}}</td>
-                        <td class="center">{{$office->user->username}}</td>
-
-                    </tr>
-@endforeach
-
-
-                    </tbody>
-                </table>
-            </div>
-        </div><!--/span-->
-
-    </div><!--/row-->
 
 
 @endsection

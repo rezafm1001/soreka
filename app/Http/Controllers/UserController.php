@@ -19,11 +19,11 @@ class UserController extends BaseController
     public function index()
     {
         //
-        if(Gate::allows('see_users')){
-            $users=User::get();
-            return view('user.list',compact('users'));
-        }else {
-        echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+        if (Gate::allows('see_users')) {
+            $users = User::get();
+            return view('user.list', compact('users'));
+        } else {
+            return abort(401);
         }
 
 
@@ -37,11 +37,11 @@ class UserController extends BaseController
     public function create()
     {
         //
-        if(Gate::allows('create_user')){
-            $roles=Role::get();
-            return view('user.create',compact('roles'));
-        }else {
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+        if (Gate::allows('create_user')) {
+            $roles = Role::get();
+            return view('user.create', compact('roles'));
+        } else {
+            return abort(401);
 
         }
 
@@ -50,21 +50,22 @@ class UserController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //
-        if(Gate::allows('create_user')) {
+        if (Gate::allows('create_user')) {
             $user = User::create([
                 'username' => $request['username'],
                 'password' => Hash::make($request['password']),
+                'creator_id' => auth()->user()->id,
             ]);
             $user->roles()->sync($request->input('role'));
             return redirect(route('user.index'));
-        }else {
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+        } else {
+            return abort(401);
 
         }
     }
@@ -72,7 +73,7 @@ class UserController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -83,18 +84,21 @@ class UserController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
     {
         //
-        if(Gate::allows('update_user')){
-            $roles=Role::get();
-            return view('user.edit',compact('user','roles'));
-        }else{
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
-
+        if ($user->id == 1 && auth()->user()->id!=1) {
+            return abort(401);}
+        else{
+            if (Gate::allows('update_user')||$user->id==auth()->user()->id) {
+                $roles = Role::get();
+                return view('user.edit', compact('user', 'roles'));
+            } else {
+                return abort(401);
+            }
         }
 
     }
@@ -102,41 +106,50 @@ class UserController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param \Illuminate\Http\Request $request
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
     {
         //
-        if(Gate::allows('update_user')) {
+        if ($user->id == 1 && auth()->user()->id!=1) {
+            return abort(401);}
+        else{
+            if (Gate::allows('update_user') || $user->id==auth()->user()->id) {
 
-            $user->update([
-                'username' => $request['username'],
-                'password' => Hash::make($request['password']),
-            ]);
-            $user->roles()->sync($request->input('role'));
-            return redirect(route('user.index'));
-        }else {
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+                $user->update([
+                    'username' => $request['username'],
+                    'password' => Hash::make($request['password']),
+                ]);
+                $user->roles()->sync($request->input('role'));
+                return redirect()->back();
+            } else {
+                return abort(401);
 
+            }
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
     {
         //
-        if(Gate::allows('delete_user')) {
-        $user->delete();
-        return redirect()->back();}
-        else {
-            echo '<h1>'.'دسترسی غیر مجاز'.'</h1>';
+        if ($user->id != 1) {
+            if (Gate::allows('delete_user')) {
+                $user->delete();
+                return redirect()->back();
+            } else {
+                return abort(401);
+
+            }
+        } else {
+            return abort(401);
 
         }
     }

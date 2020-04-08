@@ -9,7 +9,7 @@ class Permission extends Model
 {
     //
     use SoftDeletes;
-    protected $fillable=['name'];
+    protected $fillable=['name','title'];
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
