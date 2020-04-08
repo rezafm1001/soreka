@@ -15,12 +15,12 @@
 
                                 <div class="form-group">
                                     <label>نام کاربری</label>
-                                    <input class="form-control"  name="username" placeholder="username">
+                                    <input class="form-control"  name="username" placeholder="username" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label>پسورد</label>
-                                    <input class="form-control"  name="password" placeholder="password">
+                                    <input class="form-control"  name="password" placeholder="password" required minlength="4">
                                 </div>
 
                                 <select id="rezaa" name="role[]" multiple >

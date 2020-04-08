@@ -13,7 +13,7 @@
         {{csrf_field()}}
         <div class="form-group">
             <label>نام دسترسی</label>
-            <input class="form-control"  name="name" placeholder="name">
+            <input class="form-control"  name="name" placeholder="name" required>
         </div>
 
         <select name="permission[]" multiple id="rezaa">
