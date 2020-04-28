@@ -51,6 +51,13 @@ class OfficeController extends BaseController
         //
         $this->validate(request(), [
             'office_name' => 'required|string',
+            'city_name' => 'string',
+            'activity' => 'string',
+            'expert_name' => 'string',
+            'manager_name' => 'string',
+            'description' => 'string',
+            'brand' => 'string',
+            'address' => 'string',
             'phone[]'=>'numeric',
 
         ]);
