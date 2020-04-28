@@ -20,10 +20,10 @@ class OfficeController extends BaseController
     public function index(Request $request)
     {
         //
-        if($request->has('text')){
-            $offices = Office::where('user_id', auth()->user()->id)->where($request['field'],'LIKE','%'.$request['text'].'%')->orderBy('id','DESC')->paginate(30);
-        }else{
-            $offices = Office::where('user_id', auth()->user()->id)->orderBy('id','DESC')->paginate(30);
+        if ($request->has('text')) {
+            $offices = Office::where('user_id', auth()->user()->id)->where($request['field'], 'LIKE', '%' . $request['text'] . '%')->orderBy('id', 'DESC')->paginate(30);
+        } else {
+            $offices = Office::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->paginate(30);
         }
         return view('office.list', compact('offices'));
     }
@@ -58,8 +58,8 @@ class OfficeController extends BaseController
             'description' => 'string',
             'brand' => 'string',
             'address' => 'string',
-            'phone[]'=>'numeric',
-
+            'phone[]' => 'numeric',
+            'name[]' => 'numeric',
         ]);
 //        dd($request->all());
         Office::create([
@@ -75,7 +75,7 @@ class OfficeController extends BaseController
             'user_id' => auth()->user()->id,
         ]);
         foreach ($request->input('name') as $key => $value) {
-            if (!(is_null($value)&&is_null($request->input('phone')[$key]))) {
+            if (!(is_null($value) && is_null($request->input('phone')[$key]))) {
                 PhoneNumber::create([
                     'phone' => $request->input('phone')[$key],
                     'name' => $request->input('name')[$key],
@@ -122,7 +122,7 @@ class OfficeController extends BaseController
         //
         $this->validate(request(), [
             'office_name' => 'required|string',
-            'phone[]'=>'numeric',
+            'phone[]' => 'numeric',
         ]);
         $office->PhoneNumbers()->delete();
         foreach ($request->input('name') as $key => $value) {
@@ -157,10 +157,10 @@ class OfficeController extends BaseController
     {
         //
         if (Gate::allows('see_all_offices')) {
-            if($request->has('text')) {
-                $offices = Office::where($request['field'],'LIKE','%'.$request['text'].'%')->orderBy('id', 'DESC')->paginate(30);
+            if ($request->has('text')) {
+                $offices = Office::where($request['field'], 'LIKE', '%' . $request['text'] . '%')->orderBy('id', 'DESC')->paginate(30);
 
-            }else {
+            } else {
                 $offices = Office::orderBy('id', 'DESC')->paginate(30);
 
             }
@@ -170,7 +170,6 @@ class OfficeController extends BaseController
 
         }
     }
-
 
 
 }
