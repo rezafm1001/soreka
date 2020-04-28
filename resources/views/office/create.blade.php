@@ -10,28 +10,28 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <form role="form" method="post" action="{{route('office.store')}}">
-@csrf
+                                @csrf
                                 <div class="form-group">
                                     <label>نام شرکت</label>
-                                    <input class="form-control"  name="office_name" required>
+                                    <input class="form-control" name="office_name" required>
                                 </div>
 
 
                                 <div class="form-group">
                                     <label>نام شهر</label>
-                                    <input class="form-control"  name="city_name">
+                                    <input class="form-control" name="city_name">
                                 </div>
                                 <div class="form-group">
                                     <label>زمیه فعالیت</label>
-                                    <input class="form-control"  name="activity">
+                                    <input class="form-control" name="activity">
                                 </div>
                                 <div class="form-group">
                                     <label>نام کارشناس</label>
-                                    <input class="form-control"  name="expert_name">
+                                    <input class="form-control" name="expert_name">
                                 </div>
                                 <div class="form-group">
                                     <label>نام مدیر</label>
-                                    <input class="form-control"  name="manager_name">
+                                    <input class="form-control" name="manager_name">
                                 </div>
 
                                 <div class="form-group">
@@ -44,7 +44,7 @@
 
                                 <div class="form-group">
                                     <label>برندهای تحت پوشش</label>
-                                    <input class="form-control"  name="brand">
+                                    <input class="form-control" name="brand">
                                 </div>
 
                                 <div class="form-group">
@@ -55,19 +55,19 @@
 
                                 <div class="form-group">
                                     <label>آدرس</label>
-                                    <input class="form-control"  name="address">
+                                    <input class="form-control" name="address">
                                 </div>
 
 
                                 <span class="btn btn-default" style="padding: 3px;" onclick="addFilter()">افزودن شماره تلفن</span><br><br>
 
                                 <div id="filters_holder" class="row">
-                                    <input class="form-control" name="name[0]" type="text"  placeholder="نام و سمت شخص">
-                                    <input class="form-control" name="phone[0]" type="number"  placeholder="شماره تلفن">
+                                    <input class="form-control" name="name[0]" type="text" placeholder="نام و سمت شخص">
+                                    <input class="form-control" name="phone[0]" type="number" placeholder="شماره تلفن">
                                 </div>
 
 
-<br><br>
+                                <br><br>
                                 <button type="submit" class="btn btn-info">{{__('res.save')}}</button>
                             </form>
                         </div>
@@ -85,14 +85,14 @@
     </div>
 
 
-<div>
+    <div>
         @if($errors->any())
             <ul>
                 @foreach($errors->all() as $e)
                     <li>
-                       <p class="alert-danger">{{$e}}</p>
+                        <p class="alert-danger">{{$e}}</p>
                     </li>
-                    @endforeach
+                @endforeach
             </ul>
         @endif
     </div>
@@ -102,11 +102,11 @@
 
 
     <script>
-        function addFilter(){
-            var count=document.getElementsByClassName("divi").length+1;
-            var txt='<br><div  class="divi">' +
-                '<br><input class="form-control" name="name['+count+']" type="text"  placeholder="نام و سمت شخص">' +
-                '<input class="form-control" name="phone['+count+']" type="text"  placeholder="شماره تلفن">' +
+        function addFilter() {
+            var count = document.getElementsByClassName("divi").length + 1;
+            var txt = '<br><div  class="divi">' +
+                '<br><input class="form-control" name="name[' + count + ']" type="text"  placeholder="نام و سمت شخص">' +
+                '<input class="form-control" name="phone[' + count + ']" type="text"  placeholder="شماره تلفن">' +
                 '</div>';
             $("#filters_holder").append(txt);
         }

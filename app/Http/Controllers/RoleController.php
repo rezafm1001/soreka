@@ -12,13 +12,20 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         if(Gate::allows('see_roles')) {
-            $roles = Role::orderBy('id','DESC')->paginate(30);
+            if($request->has('text')) {
+                $roles = Role::orderBy('id','DESC')->where($request['field'],'LIKE','%'.$request['text'].'%')->paginate(30);
+
+            }else{
+                $roles = Role::orderBy('id','DESC')->paginate(30);
+
+            }
             return view('role.list', compact('roles'));
         }else {
             return abort(401);

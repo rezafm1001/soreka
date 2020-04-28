@@ -14,15 +14,20 @@ class OfficeController extends BaseController
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $offices = Office::where('user_id', auth()->user()->id)->orderBy('id','DESC')->paginate(30);
+        if($request->has('text')){
+            $offices = Office::where('user_id', auth()->user()->id)->where($request['field'],'LIKE','%'.$request['text'].'%')->orderBy('id','DESC')->paginate(30);
+        }else{
+            $offices = Office::where('user_id', auth()->user()->id)->orderBy('id','DESC')->paginate(30);
+        }
         return view('office.list', compact('offices'));
-
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -141,11 +146,17 @@ class OfficeController extends BaseController
         return redirect()->back();
     }
 
-    public function all()
+    public function all(Request $request)
     {
         //
         if (Gate::allows('see_all_offices')) {
-            $offices = Office::orderBy('id','DESC')->paginate(30);
+            if($request->has('text')) {
+                $offices = Office::where($request['field'],'LIKE','%'.$request['text'].'%')->orderBy('id', 'DESC')->paginate(30);
+
+            }else {
+                $offices = Office::orderBy('id', 'DESC')->paginate(30);
+
+            }
             return view('office.list_all', compact('offices'));
         } else {
             return abort(401);

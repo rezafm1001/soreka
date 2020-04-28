@@ -5,6 +5,23 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                    <div class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <form method="get" action="{{route('user.index')}}">
+                                <div style="float: right">
+                                    <input type="text" class="form-control"  placeholder="Search..." name="text">
+                                    <select name="field" class="form-control">
+                                        <option value="username">نام کاربری</option>
+                                    </select>
+                                </div>
+                                <span class="input-group-btn">
+                                <button  class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
